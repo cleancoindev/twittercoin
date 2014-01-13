@@ -64,7 +64,7 @@ module Tweet::Message
     extend self
 
     def reminder(recipient, amount)
-      link = "www.tippercoin.com/#/profile/#{recipient}?direct=true&r=#{Helper.rand()}"
+      link = "www.tippercoin.com/#/profile/#{recipient}?direct=true"
       # sendersStr = sendersArr.map {|s| "@#{s}"}.join(", ")
 
       "@#{recipient}, you have #{amount} BTC pending in tips! "\
