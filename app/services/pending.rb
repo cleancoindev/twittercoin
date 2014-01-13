@@ -42,6 +42,8 @@ module Pending
 
       sleep 10 if !dry
     end
+
+    return false
   end
 
   def refunds(dry: true)
@@ -85,5 +87,7 @@ module Pending
       sleep 10 if !dry
 
     end
+
+    return false
   end
 end
