@@ -28,22 +28,18 @@ module TipperClient
   end
 
   def uncaught_mentions
-    uncaught = []
     tweets = mentions + hashtags
 
-    tweets.each do |tweet|
-      tt = TweetTip.find_by(api_tweet_id_str: tweet[:id].to_s)
-      uncaught << tweet if tt.blank?
+    uncaught = tweets.select do |tweet|
+      tweet unless TweetTip.find_by(api_tweet_id_str: tweet[:id].to_s)
     end
 
     uncaught.map do |tweet|
-      {
-        content: tweet[:text],
+      { content: tweet[:text],
         screen_name: tweet[:user][:screen_name],
         api_tweet_id_str: tweet[:id].to_s
       }
     end
-
   end
 
   def save_uncaught_mentions
