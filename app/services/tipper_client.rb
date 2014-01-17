@@ -19,9 +19,7 @@ module TipperClient
 
   # Returns: Array of tweets
   def mentions
-    TWITTER_CLIENT.mentions(count: 200).map do |mention|
-      mention.attrs
-    end
+    TWITTER_CLIENT.mentions(count: 200).map(&:attrs)
   end
 
   # Returns: Array of tweets
