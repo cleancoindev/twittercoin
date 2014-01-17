@@ -25,6 +25,7 @@ group :test do
 	gem 'vcr'
 	gem 'webmock'
 	gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
 end
 
 gem 'httparty'
