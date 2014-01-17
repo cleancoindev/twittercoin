@@ -12,7 +12,7 @@ module API
 
       def trigger(description, details={})
         @client ||= API::PagerDutyMgr::Client.new
-        @client.trigger(description, details) if !(Rails.env.development? || Rails.env.test?)
+        @client.trigger(description, details) unless Rails.env.development?
       end
 
     end
