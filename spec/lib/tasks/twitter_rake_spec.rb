@@ -5,7 +5,7 @@ describe 'twitter:listen' do
   include_context 'rake'
 
   it 'notifies PagerDuty when passed a Twitter Stall Error' do
-    TWITTER_STREAM.stub(:user).and_yield(Twitter::Streaming::StallWarning)
+    TWITTER_STREAM.stub(:user).and_yield(Twitter::Streaming::StallWarning.new)
     API::PagerDutyMgr::CriticalBug.stub(:trigger)
 
     rake
