@@ -5,8 +5,8 @@ namespace :twitter do
   desc "Everything"
   task :listen => :environment do
 
-    p "listening to Twitter Streaming API ..."
-    TWITTER_STREAM.user(replies: "all", track: "#tippercoin") do |object|
+    ap "listening to Twitter Streaming API for #{HASHTAG} and replies to @#{TWITTER_CLIENT.user.screen_name} ..."
+    TWITTER_STREAM.user(replies: "all", track: HASHTAG) do |object|
       Thread.new do
         begin
           p object

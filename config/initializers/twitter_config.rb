@@ -16,3 +16,9 @@ TWITTER_STREAM = Twitter::Streaming::Client.new do |config|
   config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
   config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
 end
+
+HASHTAG = if Rails.env.production?
+  "#tippercoin"
+else
+  "#tippercointest"
+end
