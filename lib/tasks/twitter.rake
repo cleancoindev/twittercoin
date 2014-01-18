@@ -1,4 +1,5 @@
 require 'dotenv/tasks'
+require_relative '../../app/services/api/pager_duty_mgr'
 
 namespace :twitter do
 
@@ -23,10 +24,11 @@ namespace :twitter do
 
           when Twitter::DirectMessage
             ap "DM Received"
-          when Twitter::Streaming::StallWarning
-            ap "Falling behind!"
-            # TODO: PagerDuty
           else
+            if object == Twitter::Streaming::StallWarning || object.is_a?(Twitter::Streaming::StallWarning)
+              ap "Falling behind!"
+              API::PagerDutyMgr::CriticalBug.trigger 'Falling behind!'
+            end
             # TODO: Handle HTTP 420 error code
             # Means there's too many connections
             # rescue?
