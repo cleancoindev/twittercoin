@@ -13,8 +13,9 @@ class User < ActiveRecord::Base
   end
 
   def self.unauthenticated_with_tips
-    # TODO: remove n + 1 triggered by valid/count
-    unauthenticated.select{|user| user.tips_received.is_valid.count > 0 }
+    unauthenticated.joins(:tips_received).where.not(
+      tweet_tips: { tx_hash: nil, satoshis: nil }
+    ).group('users.id').having('COUNT(tweet_tips.id) > 0')
   end
 
   def reminded_recently?(less_than: 3.days)
