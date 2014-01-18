@@ -9,83 +9,68 @@ class User < ActiveRecord::Base
   validates :screen_name, uniqueness: { case_sensitive: false }, presence: true
 
   def self.unauthenticated
-    self.where(authenticated: false)
+    where(authenticated: false)
   end
 
   def self.unauthenticated_with_tips
     # TODO: remove n + 1 triggered by valid/count
-    self.unauthenticated.select do |u|
-      u.tips_received.is_valid.count > 0
-    end
+    unauthenticated.select{|user| user.tips_received.is_valid.count > 0 }
   end
 
-  def reminded_recently(less_than: 3.days)
-    self.reminded_at && self.reminded_at > less_than.ago
+  def reminded_recently?(less_than: 3.days)
+    reminded_at && reminded_at > less_than.ago
   end
 
   def all_tips
-    (self.tips_received.is_valid + self.tips_given.is_valid).sort_by { |t| t.created_at }.reverse
+    (tips_received.is_valid + tips_given.is_valid).sort_by(&:created_at).reverse
   end
 
   def self.find_profile(screen_name)
-    user = User.find_by("screen_name ILIKE ?", screen_name)
-    return if user.blank?
-    return if user.addresses.blank?
-    return user
+    joins(:addresses).find_by('screen_name ILIKE ?', screen_name)
   end
 
   def self.create_profile(screen_name)
-    return if screen_name.nil?
+    return unless screen_name
     user = User.find_or_create_by(screen_name: screen_name)
     user.slug ||= SecureRandom.hex(8)
 
     user.save
 
     user.addresses.create(BitcoinAPI.generate_address)
-    return user
+    user
   end
 
   def current_address
-    self.addresses.last.address
+    addresses.last.address
   end
 
   def get_balance
-    info = BitcoinAPI.get_info(self.current_address)
+    info = BitcoinAPI.get_info(current_address)
     info["final_balance"]
   end
 
   def likely_missing_fee?(amount)
-    return false if amount.nil?
-
-    balance = get_balance
-    difference = balance - amount
-
-    return true if difference >= 0 && difference < FEE
-    return false
-
+    difference = get_balance - amount.to_i
+    difference >= 0 && difference < FEE
   end
 
   def enough_balance?(amount)
-    return false if amount.nil?
-    get_balance >= amount + FEE
+    amount ? get_balance >= amount + FEE : false
   end
 
   def enough_confirmed_unspents?(amount)
     begin
-      BitcoinAPI.get_unspents(self.current_address, amount + FEE)
-      return true
+      BitcoinAPI.get_unspents(current_address, amount + FEE)
+      true
     rescue Exception => e
       ap e.inspect
-      return false
+      false
     end
   end
 
   def withdraw(amount, to_address)
-    BitcoinAPI.send_tx(
-      self.addresses.last,
-      to_address,
-      amount)
-    return true
+    BitcoinAPI.send_tx(addresses.last, to_address, amount)
+    true
   end
 
 end
