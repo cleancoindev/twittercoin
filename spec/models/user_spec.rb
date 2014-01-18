@@ -12,7 +12,7 @@ describe User, 'validations' do
 end
 
 describe User, '.unauthenticated' do
-  it 'returns authenticated users' do
+  it 'returns unauthenticated users' do
     authenticated = create(:user, authenticated: true)
     unauthenticated = create(:user, authenticated: false)
 
@@ -226,5 +226,19 @@ describe User, '#withdraw' do
     expect(BitcoinAPI).to have_received(:send_tx).with(
       from_address, to_address, 100_000
     )
+  end
+end
+
+describe User, '.unauthenticated_with_tips' do
+  it 'returns unauthenticated users with more than zero valid tips received' do
+    valid_user = create(:user, authenticated: false)
+    valid_user.tips_received << create(:tweet_tip)
+    invalid_user = create(:user, authenticated: false)
+    invalid_user.tips_received << create(:tweet_tip, satoshis: nil)
+
+    users = subject.class.unauthenticated_with_tips
+
+    expect(users).to include valid_user
+    expect(users).to_not include invalid_user
   end
 end
