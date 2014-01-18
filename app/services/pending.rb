@@ -6,7 +6,7 @@ module Pending
 
     recipients.each do |recipient|
       begin
-        next if recipient.reminded_recently(less_than: 3.days)
+        next if recipient.reminded_recently?(less_than: 3.days)
 
         unclaimed = recipient.tips_received.unclaimed(has_been: 20.days)
         next if unclaimed.blank?
