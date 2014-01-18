@@ -8,23 +8,23 @@ class TweetTip < ActiveRecord::Base
   validates :screen_name, presence: true
 
   def build_link
-    "https://twitter.com/#{self.screen_name}/status/#{self.api_tweet_id_str}"
+    "https://twitter.com/#{screen_name}/status/#{api_tweet_id_str}"
   end
 
   def self.unclaimed(has_been: 21.days)
-    unclaimed = self.where("created_at <= ?", has_been.ago).is_valid.not_refunded
+    where("created_at <= ?", has_been.ago).is_valid.not_refunded
   end
 
   def self.not_refunded
-    self.where(tx_hash_refund: nil)
+    where(tx_hash_refund: nil)
   end
 
   def self.is_valid
-    self.where.not(tx_hash: nil).where.not(satoshis: nil)
+    where.not(tx_hash: nil, satoshis: nil)
   end
 
   def is_valid?
-    !self.tx_hash.nil? && !self.satoshis.nil?
+    tx_hash.present? && satoshis.present?
   end
 
 end
