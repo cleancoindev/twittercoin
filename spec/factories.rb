@@ -12,4 +12,8 @@ FactoryGirl.define do
     screen_name 'bitcoinmafia'
     api_tweet_id_str '123'
   end
+
+  factory :user do
+
+  end
 end
