@@ -6,7 +6,7 @@ module Tweet::Runner
   def execute(content: nil, sender: nil, status_id: nil)
     return if sender =~ /tippercoin/i
     # TODO: Handle Spammers
-    return if sender =~ /maximillion50/i
+    # return if sender =~ /maximillion50/i
 
     return ap "Retweet ... " if content =~ RETWEET
 
