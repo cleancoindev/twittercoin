@@ -58,7 +58,7 @@ module Pending
 
     recipients.each do |recipient|
       begin
-        next if recipient.reminded_at.nil?
+        # next if recipient.reminded_at.nil?
 
         unclaimed = recipient.tips_received.unclaimed(has_been: 21.days)
         unclaimed.each do |tip|
