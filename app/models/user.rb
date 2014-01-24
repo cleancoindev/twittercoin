@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_profile(screen_name)
-    joins(:addresses).find_by('screen_name ILIKE ?', screen_name)
+    find_by('screen_name ILIKE ?', screen_name)
   end
 
   def self.create_profile(screen_name)
