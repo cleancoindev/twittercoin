@@ -2,11 +2,12 @@ module Pending
   extend self
 
   def reminders(dry: true)
+    count = 0
     recipients = User.unauthenticated_with_tips
 
     recipients.each do |recipient|
       begin
-        next if recipient.reminded_recently(less_than: 3.days)
+        next if recipient.reminded_recently(less_than: 7.days)
 
         unclaimed = recipient.tips_received.unclaimed(has_been: 20.days)
         next if unclaimed.blank?
@@ -21,12 +22,17 @@ module Pending
         )
 
         ap message
+
         if !dry
-          TWITTER_CLIENT.update(message)
+          TWITTER_CLIENT.update(message,
+            in_reply_to_status_id: unclaimed.first.api_tweet_id_str)
 
           recipient.reminded_at = Time.now
           recipient.save
         end
+
+        count += 1
+        ap "##{count}"
 
       rescue Exception => e
         ap e.inspect
@@ -42,13 +48,18 @@ module Pending
 
       sleep 10 if !dry
     end
+
+    return false
   end
 
   def refunds(dry: true)
+    count = 0
     recipients = User.unauthenticated_with_tips
 
     recipients.each do |recipient|
       begin
+        next if recipient.reminded_at.nil?
+
         unclaimed = recipient.tips_received.unclaimed(has_been: 21.days)
         unclaimed.each do |tip|
           refund_amount = tip.satoshis - FEE
@@ -68,6 +79,9 @@ module Pending
             tip.save
           end
 
+          count += 1
+          ap "##{count}"
+
           sleep 10 if !dry
         end
       rescue Exception => e
@@ -85,5 +99,7 @@ module Pending
       sleep 10 if !dry
 
     end
+
+    return false
   end
 end
