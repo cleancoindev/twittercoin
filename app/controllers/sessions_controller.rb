@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_profile(auth["info"]["nickname"]) || User.create_profile(auth["info"]["nickname"])
     user.uid = auth["uid"]
     user.authenticated = true
-    binding.pry
+
     user.save
 
     session[:slug] = user.slug
