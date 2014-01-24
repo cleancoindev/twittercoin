@@ -98,8 +98,6 @@ module Pending
         next
       end
 
-      sleep 10 if !dry
-
     end
 
     return false
