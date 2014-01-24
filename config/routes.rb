@@ -1,4 +1,6 @@
 Twittercoin::Application.routes.draw do
+  devise_for :admins
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   root to: "application#index"
 
   namespace :api, defaults: { format: :json }  do

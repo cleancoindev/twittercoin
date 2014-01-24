@@ -41,3 +41,8 @@ group :test do
 	gem 'vcr'
 	gem 'webmock'
 end
+
+gem 'rails_admin'
+
+
+gem "devise"
