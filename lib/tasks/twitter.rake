@@ -8,10 +8,10 @@ namespace :twitter do
 
     ap "listening to Twitter Streaming API for #{HASHTAG} and replies to @#{TWITTER_CLIENT.user.screen_name} ..."
     TWITTER_STREAM.user(replies: "all", track: HASHTAG) do |object|
+      p object
+
       Thread.new do
         begin
-          p object
-
           case object
           when Twitter::Tweet
             ap "TWEET: #{object.text}"
