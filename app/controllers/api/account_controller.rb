@@ -41,13 +41,23 @@ class Api::AccountController < ActionController::Base
   def build_account
     # TODO: Add 401
     return unless session[:slug]
-
     @user = User.find_by(slug: session[:slug])
-    @balance = @user.get_balance.to_BTCFloat
+
+    balance = @user.get_balance || "n/a"
+
+    if balance == "n/a"
+      @balance = "n/a"
+      deposit = false
+    else
+      @balance = balance.to_BTCFloat
+      deposit = @balance < MINIMUM_DEPOSIT.to_BTCFloat
+    end
+
+
     @account = {
       messages: {
         welcome: true,
-        deposit: @balance < MINIMUM_DEPOSIT.to_BTCFloat,
+        deposit: deposit,
         withdraw: {
           default: true,
           success: false,

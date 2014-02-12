@@ -21,6 +21,11 @@
                 Activate your account by depositing <span class='text-primary'><strong>>= {{account.deposit.amount}} BTC</strong></span>
               </p>
             </blockquote>
+            <blockquote ng-if="account.balance == 'n/a'">
+              <p class="lead lead-super">
+                Balance information currently unavailable. Please use <a href="https://blockchain.info" target="_blank">https://blockchain.info</a>
+              </p>
+            </blockquote>
           </div>
         </div>
         <br>

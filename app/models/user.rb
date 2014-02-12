@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
 
   def get_balance
     info = BitcoinAPI.get_info(current_address)
+    return unless info
     info["final_balance"]
   end
 
