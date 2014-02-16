@@ -35,7 +35,7 @@ class Tweet::Handler
     return @state = :unauthenticated if !@sender_user.authenticated
     return @state = :direct_tweet if @parsed_tweet.direct_tweet?
     return @state = :zero_amount if @satoshis && @satoshis.zero?
-    return @state = :negative_amount if @satoshis && @satoshis < 0
+    return @state = :min_output if @satoshis && @satoshis < 5_550
     return @state = :likely_forgot_symbol if @parsed_tweet.likely_forgot_symbol?
     return @state = :unknown if !@parsed_tweet.valid? # Other Unknown Error
     return @state = :likely_missing_fee if @sender_user.likely_missing_fee?(@satoshis)

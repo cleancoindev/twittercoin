@@ -43,9 +43,9 @@ module Tweet::Message
       "@#{sender}, you don't have enough confirmed unspents, pls wait for a few mins! #{link}"
     end
 
-    def negative_amount(sender)
+    def min_output(sender)
       link = "www.tippercoin.com/#/documentation?r=#{Helper.rand()}"
-      "@#{sender}, You can't send negative amounts! #{link}"
+      "@#{sender}, amount must be 0.000055 BTC or above #{link}"
     end
 
     def zero_amount(sender)
