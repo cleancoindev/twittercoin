@@ -6,7 +6,7 @@ describe Tweet::Parser do
   let(:btc_usd) { 695.0 }
 
   before(:each) do
-    Mtgox.stub(:latest).and_return(695.0)
+    Bitstamp.stub(:latest).and_return(695.0)
   end
 
   context "Basic: " do
@@ -318,7 +318,7 @@ describe 'Tweet::Parser Bulk Check' do
   let(:sender) { "sender" }
 
   before(:each) do
-    Mtgox.stub(:latest).and_return(695.0)
+    Bitstamp.stub(:latest).and_return(695.0)
   end
 
   # Make sure contents are parsed regardless of spacing between prefix/prefix

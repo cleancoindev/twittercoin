@@ -28,15 +28,18 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'pry-rails'
-  gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'vcr'
-  gem 'webmock'
 end
 
 group :doc do
 	gem 'sdoc', require: false
+end
+
+group :test do
+  gem 'webmock'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'vcr'
 end
 
 gem 'rails_admin'

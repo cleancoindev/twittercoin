@@ -51,27 +51,27 @@ module Tweet::Extractor
       {
         name: :USD,
         regex: /\s(\d*.?\d*)\s?USD/i,
-        satoshify: Proc.new {|nStr| (nStr.to_f / Mtgox.latest).to_satoshis }
+        satoshify: Proc.new {|nStr| (nStr.to_f / Bitstamp.latest).to_satoshis }
       },
       {
         name: :dollar,
         regex: /\s(\d*.?\d*)\s?dollar/i,
-        satoshify: Proc.new {|nStr| (nStr.to_f / Mtgox.latest).to_satoshis }
+        satoshify: Proc.new {|nStr| (nStr.to_f / Bitstamp.latest).to_satoshis }
       },
       {
         name: :USD_SIGN,
         regex: /\$\s?(\d*.?\d*)/i,
-        satoshify: Proc.new {|nStr| (nStr.to_f / Mtgox.latest).to_satoshis }
+        satoshify: Proc.new {|nStr| (nStr.to_f / Bitstamp.latest).to_satoshis }
       },
       {
         name: :beer,
         regex: /\s(\d*.?\d*)\s?beer/i,
-        satoshify: Proc.new {|nStr| (nStr.to_f * 4 / Mtgox.latest).to_satoshis }
+        satoshify: Proc.new {|nStr| (nStr.to_f * 4 / Bitstamp.latest).to_satoshis }
       },
       {
         name: :coffee,
         regex: /\s(\d*.?\d*)\s?coffee/i,
-        satoshify: Proc.new {|nStr| (nStr.to_f * 3 / Mtgox.latest).to_satoshis }
+        satoshify: Proc.new {|nStr| (nStr.to_f * 3 / Bitstamp.latest).to_satoshis }
       },
       {
         name: :internet,
