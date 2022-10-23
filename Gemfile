@@ -8,7 +8,7 @@ gem 'angularjs-rails', '~> 1.2.5'
 gem 'angular-ui-bootstrap-rails'
 gem 'awesome_print'
 gem 'bitcoin-ruby', require: 'bitcoin'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.1'
 gem 'dalli'
 gem 'dotenv'
 gem 'ffi'
@@ -20,9 +20,9 @@ gem 'memcachier'
 gem 'newrelic_rpm'
 gem 'omniauth-twitter'
 gem 'pagerduty'
-gem 'puma'
+gem 'puma', '>= 2.12.0'
 gem 'pusher'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.1'
 gem 'twitter'
 gem 'uglifier', '>= 1.3.0'
 
@@ -42,7 +42,7 @@ group :test do
   gem 'vcr'
 end
 
-gem 'rails_admin'
+gem 'rails_admin', '>= 1.0.0'
 
 
 gem "devise"
