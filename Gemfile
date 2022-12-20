@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.2.0'
 
 gem 'pg'
 
@@ -22,7 +22,7 @@ gem 'omniauth-twitter'
 gem 'pagerduty'
 gem 'puma'
 gem 'pusher'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0.0'
 gem 'twitter'
 gem 'uglifier', '>= 1.3.0'
 
@@ -42,7 +42,7 @@ group :test do
   gem 'vcr'
 end
 
-gem 'rails_admin'
+gem 'rails_admin', '>= 0.6.4'
 
 
 gem "devise"
