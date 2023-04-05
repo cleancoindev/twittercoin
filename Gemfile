@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '6.1.7.3'
 
 gem 'pg'
 
@@ -8,23 +8,23 @@ gem 'angularjs-rails', '~> 1.2.5'
 gem 'angular-ui-bootstrap-rails'
 gem 'awesome_print'
 gem 'bitcoin-ruby', require: 'bitcoin'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'dalli'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'dalli', '>= 3.2.3'
 gem 'dotenv'
-gem 'ffi'
-gem 'font-awesome-rails'
-gem 'httparty'
-gem 'jbuilder', '~> 1.2'
-gem 'jquery-rails'
+gem 'ffi', '>= 1.9.24'
+gem 'font-awesome-rails', '>= 4.7.0.6'
+gem 'httparty', '>= 0.21.0'
+gem 'jbuilder', '~> 1.5', '>= 1.5.3'
+gem 'jquery-rails', '>= 4.4.0'
 gem 'memcachier'
 gem 'newrelic_rpm'
 gem 'omniauth-twitter'
 gem 'pagerduty'
-gem 'puma'
+gem 'puma', '>= 4.3.12'
 gem 'pusher'
-gem 'sass-rails', '~> 4.0.0'
-gem 'twitter'
-gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails', '~> 5.0.8'
+gem 'twitter', '>= 6.0.0'
+gem 'uglifier', '>= 2.7.2'
 
 group :development, :test do
   gem 'pry-rails'
@@ -32,7 +32,7 @@ group :development, :test do
 end
 
 group :doc do
-	gem 'sdoc', require: false
+	gem 'sdoc', '>= 1.0.0', require: false
 end
 
 group :test do
@@ -42,7 +42,7 @@ group :test do
   gem 'vcr'
 end
 
-gem 'rails_admin'
+gem 'rails_admin', '>= 2.0.0'
 
 
-gem "devise"
+gem "devise", ">= 4.7.1"
